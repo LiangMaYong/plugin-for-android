@@ -27,8 +27,12 @@ dependencies {
     compile 'com.liangmayong:androidplugin-bundle:1.0.0'
 }
 ```
+##Reference resources
+[android-pluginmgr](https://github.com/houkx/android-pluginmgr)
 
-
+[dynamic-load-apk](https://github.com/singwhatiwanna/dynamic-load-apk)
+##Thinks
+@Loby
 ##Technical exchange
 QQGroup：297798093
 
