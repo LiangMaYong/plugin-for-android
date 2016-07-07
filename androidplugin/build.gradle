@@ -20,6 +20,6 @@ android {
 dependencies {
 }
 
-apply from: 'https://raw.githubusercontent.com/LiangMaYong/android-library-gradle-publish/master/library.gradle'
+apply from: 'https://raw.githubusercontent.com/LiangMaYong/android-library-gradle-publish/master/library-MIT.gradle'
 apply from: 'https://raw.githubusercontent.com/LiangMaYong/android-library-gradle-publish/master/bintray.gradle'
 apply from: 'https://raw.githubusercontent.com/LiangMaYong/android-library-gradle-publish/master/install.gradle'
