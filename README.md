@@ -1,10 +1,11 @@
 # plugin-for-android
 this is android plugin framework 
+Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
 
 # version
 | version |date| note |
 |---|---|---|
-| 1.0.0|2016-07-07| test |
+| 1.0.0|2016-07-07| Test: Don't Fork |
 
 ## gradle
 plugin framework core
