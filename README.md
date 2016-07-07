@@ -1,5 +1,10 @@
 # plugin-for-android
-this is android plugin framework
+this is android plugin framework 
+
+# version
+| version |date| note |
+|---|---|---|
+| 1.0.0|2016-07-07| test |
 
 ## gradle
 plugin framework core
@@ -22,8 +27,8 @@ dependencies {
 ```
 
 
-##技术交流
-交流：QQ群297798093
+##Technical exchange
+QQGroup：297798093
 
 email：ibeam@qq.com
 ##License
