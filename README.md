@@ -4,7 +4,7 @@ this is android plugin framework
 Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
 
 # version
-[![Download](https://img.shields.io/badge/LatestVersion-1.0.0-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/archive/master.zip)
+![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.0-brightgreen.svg?style=plastic) 
 
 | version |date| note |
 |---|---|---|
