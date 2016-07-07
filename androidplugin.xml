@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<android-plugin>
+    
+    <!-- this plugin main launch -->
+    <main>main</main>
+    <!-- this plugin name -->
+    <pluginName>pluginName</pluginName>
+    
+    <!-- this plugin provider name -->
+    <providerName>provider name</providerName>
+    <!-- this plugin provider url -->
+    <providerUrl>provider url</providerUrl>
+    
+    
+    <!-- this plugin version name -->
+    <versionName>version name</versionName>
+    <!-- this plugin version code -->
+    <versionCode>version code</versionCode>
+    
+    <description>plugin description</description>
+</android-plugin>

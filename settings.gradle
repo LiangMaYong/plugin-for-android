@@ -1,0 +1,1 @@
+include ':app', ':androidplugin', ':androidplugin-bundle', ':androidplugin-support'
