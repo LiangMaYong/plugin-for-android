@@ -31,6 +31,18 @@ import android.view.Window;
  */
 public final class APActivityLifeCycle {
 
+    //currentActivity
+    private static Activity currentActivity = null;
+
+    /**
+     * getCurrentActivity
+     *
+     * @return currentActivity
+     */
+    public static Activity getCurrentActivity() {
+        return currentActivity;
+    }
+
     /**
      * exitPlugin
      *
@@ -316,6 +328,7 @@ public final class APActivityLifeCycle {
                 lifeCycleListeners.get(i).onResume(target);
             }
         }
+        currentActivity = target;
     }
 
 }
