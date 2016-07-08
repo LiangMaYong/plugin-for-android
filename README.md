@@ -3,7 +3,7 @@ this is android plugin framework
 
 Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
 
-[中文](https://raw.githubusercontent.com/LiangMaYong/plugin-for-android/master/zh.md)
+[中文](https://github.com/LiangMaYong/plugin-for-android/blob/master/zh.md)
 
 # version
 [![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.0-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
