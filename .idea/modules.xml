@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/androidplugin/androidplugin.iml" filepath="$PROJECT_DIR$/androidplugin/androidplugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidplugin-bundle/androidplugin-bundle.iml" filepath="$PROJECT_DIR$/androidplugin-bundle/androidplugin-bundle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidplugin-demo/androidplugin-demo.iml" filepath="$PROJECT_DIR$/androidplugin-demo/androidplugin-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidplugin-support/androidplugin-support.iml" filepath="$PROJECT_DIR$/androidplugin-support/androidplugin-support.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin-for-android.iml" filepath="$PROJECT_DIR$/plugin-for-android.iml" />

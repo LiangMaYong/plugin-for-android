@@ -16,6 +16,7 @@ import com.liangmayong.androidplugin.management.thread.APThreadInstallByStream;
 import com.liangmayong.androidplugin.management.thread.APThreadUnInstallByPackageName;
 import com.liangmayong.androidplugin.management.verifier.APluginVerifier;
 import com.liangmayong.androidplugin.utils.APApkParser;
+import com.liangmayong.androidplugin.utils.APEventBus;
 import com.liangmayong.androidplugin.utils.APLog;
 import com.liangmayong.androidplugin.utils.APReflect;
 
@@ -45,6 +46,13 @@ public class APluginManager {
      */
     public static Application getHostApplication() {
         return application;
+    }
+
+    /**
+     * onLowMemory
+     */
+    public static final void onLowMemory() {
+        APEventBus.getEvent("ANDROID_PLUGIN_HOST").post(0, "application.onLowMemory", null);
     }
 
     /**

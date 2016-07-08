@@ -1,5 +1,6 @@
 package com.liangmayong.androidplugin.app;
 
+import com.liangmayong.androidplugin.launcher.NotFoundActivity;
 import com.liangmayong.androidplugin.launcher.LauncherActivity;
 import com.liangmayong.androidplugin.utils.APLog;
 import com.liangmayong.androidplugin.utils.APReflect;
@@ -239,16 +240,28 @@ public class APInstrumentation extends Instrumentation {
             throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         String launchName = intent.getStringExtra(APConstant.INTENT_PLUGIN_LAUNCH);
         if (launchName != null && !"".equals(launchName)) {
+            ClassLoader pluginLoader = null;
             String pluginPath = intent.getStringExtra(APConstant.INTENT_PLUGIN_DEX);
             if (pluginPath != null && !"".equals(pluginPath)) {
-                cl = APClassLoader.getClassloader(pluginPath);
+                pluginLoader = APClassLoader.getClassloader(pluginPath);
             }
-            Activity activity = (Activity) cl.loadClass(launchName).newInstance();
-            return activity;
+            if (pluginLoader == null) {
+                pluginLoader = cl;
+            }
+            try {
+                Activity activity = (Activity) pluginLoader.loadClass(launchName).newInstance();
+                return activity;
+            } catch (Exception e) {
+                return newErrorActivity();
+            }
         }
         return mInstrumentation.newActivity(cl, className, intent);
     }
 
+    public Activity newErrorActivity()
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        return NotFoundActivity.class.newInstance();
+    }
 
     @Override
     public void callActivityOnCreate(Activity target, Bundle icicle) {

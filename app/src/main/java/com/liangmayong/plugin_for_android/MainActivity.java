@@ -1,5 +1,6 @@
 package com.liangmayong.plugin_for_android;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isLoad = false;
     private boolean isInstall = false;
     private APlugin plugin;
-    private String packageName = "com.example.plplayer";
+    private String packageName = "com.liangmayong.androidplugin_demo";
+    private String apkPath = "plugins/androidplugin-demo-debug.apk";
 
 
     @Override
@@ -77,8 +79,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     button.setText("安装失败");
                 }
             });
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "onFailed", Toast.LENGTH_SHORT).show();
+            button.setEnabled(false);
+            button.setText("安装失败");
         }
     }
 
@@ -86,10 +91,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.button) {
             if (isLoad) {
-                plugin.launch(this, null);
+                Intent intent = new Intent();
+                intent.putExtra("Extra", "This message from Host APP");
+                plugin.launch(this, intent);
             } else {
                 if (isInstall) {
-                    APluginManager.loadPluginByPackageName(this, "com.example.plplayer", new OnPluginLoadListener() {
+                    APluginManager.loadPluginByPackageName(this, packageName, new OnPluginLoadListener() {
                         @Override
                         public void onLoaded(APlugin plugin) {
                             MainActivity.this.plugin = plugin;
@@ -102,14 +109,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onFailed(Exception exception) {
                             textView.setText("正在安装中");
-                            installPlugin("plugins/PLPlayer.apk");
                             button.setText("正在安装中");
                             button.setEnabled(false);
+                            installPlugin(apkPath);
                         }
                     });
                 } else {
                     textView.setText("正在安装中");
-                    installPlugin("plugins/PLPlayer.apk");
+                    installPlugin(apkPath);
                     button.setText("正在安装中");
                     button.setEnabled(false);
                 }

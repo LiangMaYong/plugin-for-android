@@ -1,6 +1,7 @@
 package com.liangmayong.androidplugin;
 
 import com.liangmayong.androidplugin.management.APluginManager;
+import com.liangmayong.androidplugin.utils.APEventBus;
 
 import android.app.Application;
 
@@ -19,4 +20,9 @@ public class APluginApplication extends Application {
         APluginManager.init(this);
     }
 
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        APluginManager.onLowMemory();
+    }
 }

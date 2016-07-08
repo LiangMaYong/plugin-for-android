@@ -11,6 +11,7 @@ import com.liangmayong.androidplugin.app.APContext;
 import com.liangmayong.androidplugin.app.APResources;
 import com.liangmayong.androidplugin.management.APluginLauncher;
 import com.liangmayong.androidplugin.management.APluginManager;
+import com.liangmayong.androidplugin.utils.APEventBus;
 import com.liangmayong.androidplugin.utils.APLog;
 import com.liangmayong.androidplugin.utils.APModelBuilder;
 import com.liangmayong.androidplugin.utils.APReflect;
@@ -39,7 +40,7 @@ import android.graphics.drawable.Drawable;
  * @author LiangMaYong
  * @version 1.0
  */
-public final class APlugin {
+public final class APlugin implements APEventBus.IEvent {
 
     public APlugin() {
     }
@@ -253,10 +254,10 @@ public final class APlugin {
      * make application
      */
     private void makeApplication() {
-        APLog.d(getPluginLable() + " makeApplication");
         if (isMakeApplication) {
             return;
         }
+        APLog.d(getPluginLable() + " makeApplication");
         String appClassName = getPackageInfo().applicationInfo.className;
         if (appClassName == null || "".equals(appClassName)) {
             appClassName = Application.class.getName();
@@ -335,7 +336,6 @@ public final class APlugin {
      * @return true or false
      */
     public final boolean launch(Context context, Intent intent) {
-        APLog.d(getPluginLable() + " launch:" + getPluginMain());
         return startActivity(context, intent, getPluginMain());
     }
 
@@ -361,6 +361,7 @@ public final class APlugin {
      */
     public final ComponentName startService(Context context, Intent service, String serName) {
         APLog.d(getPluginLable() + " startService:" + serName);
+        APLog.d(getPluginLable() + " plugin packageName: " + getPackageName());
         File file = new File(getPluginPath());
         if (!file.exists()) {
             return null;
@@ -378,6 +379,7 @@ public final class APlugin {
      */
     public final boolean startActivity(Context context, Intent intent, String actName) {
         APLog.d(getPluginLable() + " startActivity:" + actName);
+        APLog.d(getPluginLable() + " plugin packageName: " + getPackageName());
         File file = new File(getPluginPath());
         if (!file.exists()) {
             return false;
@@ -397,6 +399,7 @@ public final class APlugin {
      */
     public final boolean startActivityForResult(Activity activity, Intent intent, int requestCode, String actName) {
         APLog.d(getPluginLable() + " startActivityForResult:" + actName);
+        APLog.d(getPluginLable() + " plugin packageName: " + getPackageName());
         File file = new File(getPluginPath());
         if (!file.exists()) {
             return false;
@@ -407,14 +410,18 @@ public final class APlugin {
 
     @SuppressWarnings("unused")
     private void onLoad(Context context) {
-        APLog.d(getPluginLable() + " onLoad");
         makeApplication();
         registerReceiver(context);
+        APLog.d(getPluginLable() + " onLoad");
+        APLog.d(getPluginLable() + " plugin packageName: " + getPackageName());
+        APEventBus.getEvent("ANDROID_PLUGIN_HOST").register(this);
     }
 
     @SuppressWarnings("unused")
     private void onUnLoad(Context context) {
         APLog.d(getPluginLable() + " onUnLoad");
+        APLog.d(getPluginLable() + " plugin packageName: " + getPackageName());
+        APEventBus.getEvent("ANDROID_PLUGIN_HOST").unregister(this);
         isMakeApplication = false;
         try {
             if (application != null) {
@@ -509,4 +516,11 @@ public final class APlugin {
         return "APlugin [lable=" + lable + ", packageName=" + getPackageName() + ", pluginPath=" + pluginPath + "]";
     }
 
+    @Override
+    public void doEvent(int id, String action, Object obj) {
+        if ("application.onLowMemory".equals(action)) {
+            if (application != null)
+                application.onLowMemory();
+        }
+    }
 }

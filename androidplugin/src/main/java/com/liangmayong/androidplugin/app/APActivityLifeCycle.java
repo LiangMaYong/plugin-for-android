@@ -9,6 +9,7 @@ import java.util.Map;
 import com.liangmayong.androidplugin.app.listener.OnActivityLifeCycleListener;
 import com.liangmayong.androidplugin.management.APlugin;
 import com.liangmayong.androidplugin.management.APluginManager;
+import com.liangmayong.androidplugin.utils.APLog;
 import com.liangmayong.androidplugin.utils.APReflect;
 
 import android.app.Activity;
@@ -101,19 +102,19 @@ public final class APActivityLifeCycle {
             activityList.add(target);
         }
         String dexPath = target.getIntent().getStringExtra(APConstant.INTENT_PLUGIN_DEX);
+        if (!mDexPath.equals(dexPath)) {
+            mDexPath = dexPath == null ? "" : dexPath;
+            try {
+                Object sConstructorMap = APReflect.getField(LayoutInflater.class, null, "sConstructorMap");
+                APReflect.method(sConstructorMap.getClass(), sConstructorMap, "clear").invoke();
+            } catch (Exception e) {
+            }
+        }
         if (dexPath != null && !"".equals(dexPath)) {
             APResources resources = APResources.getResources(dexPath);
             Context context = APContext.get(target.getBaseContext(), dexPath);
             APReflect.setField(target.getClass(), target, "mResources", resources);
             APReflect.setField(target.getClass(), target, "mBase", context);
-            if (!mDexPath.equals(dexPath)) {
-                mDexPath = dexPath;
-                try {
-                    Object sConstructorMap = APReflect.getField(LayoutInflater.class, null, "sConstructorMap");
-                    APReflect.method(sConstructorMap.getClass(), sConstructorMap, "clear").invoke();
-                } catch (Exception e) {
-                }
-            }
             APlugin plugin = APluginManager.getPluginByPluginPath(target, dexPath);
             if (plugin != null) {
                 target.setTitle(plugin.getPluginLable());
@@ -163,20 +164,33 @@ public final class APActivityLifeCycle {
         boolean flag = false;
         if (activityInfo != null) {
             int resTheme = activityInfo.getThemeResource();
+            APLog.d("setTheme : " + resTheme);
             if (resTheme != 0) {
                 flag = true;
                 boolean hasNotSetTheme = true;
                 try {
-                    hasNotSetTheme = APReflect.getField(ContextThemeWrapper.class, target, "mTheme") == null;
+                    Object theme = APReflect.getField(ContextThemeWrapper.class, target, "mTheme");
+                    hasNotSetTheme = theme == null ? true : false;
+                    APLog.d("hasNotSetTheme:" + hasNotSetTheme);
                 } catch (Exception e) {
+                    APLog.d("read hasNotSetTheme", e);
                 }
                 if (hasNotSetTheme) {
+                    APLog.d("setTheme hasNotSetTheme");
                     setActivityInfo(activityInfo, target);
                     target.setTheme(resTheme);
+                } else {
+                    APLog.d("has setTheme");
+                    try {
+                        target.getTheme().applyStyle(resTheme, false);
+                    } catch (Exception e) {
+                        APLog.d("applyStyle", e);
+                    }
                 }
             }
         }
         if (!flag) {
+            APLog.d("setTheme host Theme");
             Theme mTheme = resources.newTheme();
             mTheme.setTo(target.getBaseContext().getTheme());
             APReflect.setField(target.getClass(), target, "mTheme", mTheme);
