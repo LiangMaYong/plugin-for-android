@@ -1,5 +1,5 @@
 # plugin-for-android
-plugin-for-android是一个安卓插件化开发框架，支持启动未安装的apk
+plugin-for-android是一个安卓插件化开发框架，支持启动未安装的apk，本框架代码可供参考学习，本框架遵循MIT开源协议，几如果你要直接在你的项目中使用，请在项目中显示［plugin－for－android 提供插件化支持］字样。
 
 欢迎 star 和 [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
 
