@@ -3,6 +3,8 @@ this is android plugin framework
 
 Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
 
+[中文](https://raw.githubusercontent.com/LiangMaYong/plugin-for-android/master/zh.md)
+
 # version
 [![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.0-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
 
@@ -34,8 +36,8 @@ dependencies {
 
 [dynamic-load-apk](https://github.com/singwhatiwanna/dynamic-load-apk)
 
-<!--##Demo APK
-[plugin-demo.apk](https://raw.githubusercontent.com/LiangMaYong/plugin-for-android/master/plugin-demo.apk)-->
+##Demo APK
+[plugin-demo.apk](https://raw.githubusercontent.com/LiangMaYong/plugin-for-android/master/plugin-demo.apk)
 ##Thinks
 @Loby
 ##Technical exchange
