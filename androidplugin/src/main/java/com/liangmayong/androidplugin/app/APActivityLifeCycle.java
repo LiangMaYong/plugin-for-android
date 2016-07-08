@@ -181,11 +181,6 @@ public final class APActivityLifeCycle {
                     target.setTheme(resTheme);
                 } else {
                     APLog.d("has setTheme");
-                    try {
-                        target.getTheme().applyStyle(resTheme, false);
-                    } catch (Exception e) {
-                        APLog.d("applyStyle", e);
-                    }
                 }
             }
         }
