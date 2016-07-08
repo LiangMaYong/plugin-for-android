@@ -1,6 +1,5 @@
 package com.liangmayong.plugin_for_android;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isLoad = false;
     private boolean isInstall = false;
     private APlugin plugin;
-    private String packageName = "com.liangmayong.androidplugin_demo";
-    private String apkPath = "plugins/androidplugin-demo-debug.apk";
+    private String packageName = "com.example.plplayer";
+    private String apkPath = "plugins/PLPlayer.apk";
 
 
     @Override
@@ -76,13 +75,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onFailed(APInstallException exception) {
                     Toast.makeText(getApplicationContext(), "onFailed", Toast.LENGTH_SHORT).show();
                     button.setEnabled(false);
+                    textView.setText("安装失败");
                     button.setText("安装失败");
                 }
             });
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), "onFailed", Toast.LENGTH_SHORT).show();
             button.setEnabled(false);
+            textView.setText("安装失败");
             button.setText("安装失败");
         }
     }
@@ -91,9 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.button) {
             if (isLoad) {
-                Intent intent = new Intent();
-                intent.putExtra("Extra", "This message from Host APP");
-                plugin.launch(this, intent);
+                plugin.launch(this, null);
             } else {
                 if (isInstall) {
                     APluginManager.loadPluginByPackageName(this, packageName, new OnPluginLoadListener() {
@@ -116,9 +115,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     });
                 } else {
                     textView.setText("正在安装中");
-                    installPlugin(apkPath);
                     button.setText("正在安装中");
                     button.setEnabled(false);
+                    installPlugin(apkPath);
                 }
             }
         }
