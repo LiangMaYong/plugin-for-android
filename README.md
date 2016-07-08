@@ -34,8 +34,8 @@ dependencies {
 
 [dynamic-load-apk](https://github.com/singwhatiwanna/dynamic-load-apk)
 
-##Demo APK
-[plugin-demo.apk](https://raw.githubusercontent.com/LiangMaYong/plugin-for-android/master/plugin-demo.apk)
+<!--##Demo APK
+[plugin-demo.apk](https://raw.githubusercontent.com/LiangMaYong/plugin-for-android/master/plugin-demo.apk)-->
 ##Thinks
 @Loby
 ##Technical exchange
