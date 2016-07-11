@@ -6,7 +6,7 @@ Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issu
 [中文](https://github.com/LiangMaYong/plugin-for-android/blob/master/zh.md)
 
 # version
-[![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.0-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
+[![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.1-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
 
 | version |date| note |
 |---|---|---|
