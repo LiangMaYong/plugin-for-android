@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.liangmayong.androidplugin.app.APActivityLifeCycle;
+import com.liangmayong.androidplugin.app.APClassLoader;
 import com.liangmayong.androidplugin.app.APInstrumentation;
 import com.liangmayong.androidplugin.management.db.APTable;
 import com.liangmayong.androidplugin.management.exception.APInstallException;
@@ -169,6 +171,7 @@ public class APluginManager {
             }
             return;
         }
+        unloadPlugin(context, plugin.getPluginPath());
         APThreadUnInstallByPackageName installThread = new APThreadUnInstallByPackageName(context, plugin.getPackageName(), unInstallListener);
         installThread.start();
     }
@@ -316,6 +319,7 @@ public class APluginManager {
             APLog.d("APluginManager not init");
             return null;
         }
+        unloadPlugin(context,pluginPath);
         if (pluginMap.containsKey(pluginPath)) {
             return pluginMap.get(pluginPath);
         } else {
@@ -369,6 +373,7 @@ public class APluginManager {
             return false;
         }
         if (isLoadedByPluginPath(context, pluginPath)) {
+            APActivityLifeCycle.exitPlugin(pluginPath);
             APlugin plugin = getPluginByPluginPath(context, pluginPath);
             if (plugin != null) {
                 try {
@@ -376,6 +381,7 @@ public class APluginManager {
                 } catch (Exception e) {
                 }
             }
+            APClassLoader.unloadClassLoader(pluginPath);
             pluginMap.remove(pluginPath);
             return true;
         }

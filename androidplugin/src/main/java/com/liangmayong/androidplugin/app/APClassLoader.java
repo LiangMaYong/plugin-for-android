@@ -51,6 +51,19 @@ public final class APClassLoader {
     }
 
     /**
+     * unloadClassLoader
+     *
+     * @param pluginPath pluginPath
+     */
+    public static void unloadClassLoader(String pluginPath) {
+        if (loadPaths.contains(pluginPath)) {
+            int index = loadPaths.indexOf(pluginPath);
+            loadPaths.remove(index);
+            classLoaders.remove(index);
+        }
+    }
+
+    /**
      * get plugin classloader
      *
      * @param pluginPath pluginPath

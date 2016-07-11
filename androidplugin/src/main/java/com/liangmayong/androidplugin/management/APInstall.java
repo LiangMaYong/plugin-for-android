@@ -2,6 +2,7 @@ package com.liangmayong.androidplugin.management;
 
 import java.io.File;
 
+import com.liangmayong.androidplugin.app.APActivityLifeCycle;
 import com.liangmayong.androidplugin.app.APSOLibrary;
 import com.liangmayong.androidplugin.management.db.APTable;
 import com.liangmayong.androidplugin.management.exception.APInstallException;
@@ -57,6 +58,7 @@ public final class APInstall {
      * @throws APInstallException e
      */
     public static APlugin install(Context context, File tempFile) throws APInstallException {
+
         if (APluginManager.getPluginVerifier() != null) {
             //uncode apk file
             tempFile = APluginManager.getPluginVerifier().unzipVerifier(tempFile);
