@@ -58,6 +58,12 @@ public final class APInstall {
      */
     public static APlugin install(Context context, File tempFile) throws APInstallException {
         if (APluginManager.getPluginVerifier() != null) {
+            //uncode apk file
+            tempFile = APluginManager.getPluginVerifier().unzipVerifier(tempFile);
+            if (tempFile == null) {
+                throw new APInstallException(APInstallException.VERIFIER_UNZIP_ERROR,
+                        "plugin install error:VERIFIER_UNZIP_ERROR");
+            }
             if (!APluginManager.getPluginVerifier().installVerifier(tempFile)) {
                 throw new APInstallException(APInstallException.VERIFIER_INSTALL_ERROR,
                         "plugin install error:VERIFIER_INSTALL_ERROR");
