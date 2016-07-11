@@ -1,47 +1,45 @@
 # plugin-for-android
-this is android plugin framework 
+plugin-for-android是一个安卓插件化开发框架，支持启动未安装的apk，本框架遵循MIT开源协议，即如果你要直接在你的项目中使用，请在项目中显示 <code> plugin－for－android 提供插件化支持 </code> 字样。
 
-Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
+欢迎 star 和 [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
 
-[中文](https://github.com/LiangMaYong/plugin-for-android/blob/master/zh.md)
-
-# version
+## 版本说明
 [![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.0-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
 
-| version |date| note |
+| 版本 |日期| 说明 |
 |---|---|---|
-| 1.0.0|2016-07-07| Test |
-
+| 1.0.0|2016-07-07| 测试版本 |
 ## gradle
-plugin framework core
+插件化核心包［必选］
 ```
 dependencies {
     compile 'com.liangmayong:androidplugin:1.0.0'
 }
 ```
-plugin v4 fragment support
+插件化拓展包［可选］
 ```
 dependencies {
    compile 'com.liangmayong:androidplugin-support:1.0.0'
 }
 ```
-plugin bundle
+插件化插件包［可选］
 ```
 dependencies {
     compile 'com.liangmayong:androidplugin-bundle:1.0.0'
 }
 ```
-##Reference resources
+
+##参考
 [android-pluginmgr](https://github.com/houkx/android-pluginmgr)
 
 [dynamic-load-apk](https://github.com/singwhatiwanna/dynamic-load-apk)
 
 ##Demo APK
 [plugin-demo.apk](https://raw.githubusercontent.com/LiangMaYong/plugin-for-android/master/plugin-demo.apk)
-##Thinks
+##感谢
 @Loby
-##Technical exchange
-QQGroup：297798093
+##技术交流
+QQ群：297798093
 
 email：ibeam@qq.com
 ##License
