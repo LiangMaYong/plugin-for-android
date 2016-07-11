@@ -4,6 +4,7 @@ import com.liangmayong.androidplugin.management.APluginManager;
 import com.liangmayong.androidplugin.utils.APEventBus;
 
 import android.app.Application;
+import android.widget.Toast;
 
 /**
  * APluginApplication

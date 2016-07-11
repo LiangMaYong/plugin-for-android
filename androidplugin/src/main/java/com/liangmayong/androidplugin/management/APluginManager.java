@@ -1,5 +1,6 @@
 package com.liangmayong.androidplugin.management;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +54,26 @@ public class APluginManager {
      */
     public static final void onLowMemory() {
         APEventBus.getEvent("ANDROID_PLUGIN_HOST").post(0, "application.onLowMemory", null);
+    }
+
+    /**
+     * setDataDir
+     *
+     * @param application application
+     * @param dirname     dirname
+     */
+    public static final void setDataDir(Application application, String dirname) {
+        try {
+            Object loadedApk = APReflect.getField(Application.class, application, "mLoadedApk");
+            if (loadedApk != null) {
+                File file = new File("/data/data/" + application.getPackageName() + "/" + dirname + "/");
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+                APReflect.setField(loadedApk.getClass(), loadedApk, "mDataDirFile", file);
+            }
+        } catch (Exception e) {
+        }
     }
 
     /**
