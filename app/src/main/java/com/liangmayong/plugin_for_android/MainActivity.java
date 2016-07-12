@@ -72,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 @Override
+                public void onInstallProgress(String info, int progressstep, int allstep) {
+
+                }
+
+                @Override
                 public void onFailed(APInstallException exception) {
                     Toast.makeText(getApplicationContext(), "onFailed", Toast.LENGTH_SHORT).show();
                     button.setEnabled(false);

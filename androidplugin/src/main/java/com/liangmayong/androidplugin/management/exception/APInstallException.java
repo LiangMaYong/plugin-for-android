@@ -16,8 +16,8 @@ public class APInstallException extends Exception {
     public static final int VERIFIER_UPDATE_ERROR = -2;
     // verifier install error
     public static final int VERIFIER_INSTALL_ERROR = -3;
-    // verifier install error
-    public static final int VERIFIER_UNZIP_ERROR = -4;
+    // verifier decompression error
+    public static final int VERIFIER_DECOMPRESSION_ERROR = -4;
     // signture error
     public static final int SIGNTURE_ERROR = -5;
     // signture error

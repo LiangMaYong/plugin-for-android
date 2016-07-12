@@ -35,5 +35,5 @@ public interface APluginVerifier {
      * @param targetFile targetFile
      * @return unzipFile
      */
-    File unzipVerifier(File targetFile);
+    File decompressionVerifier(File targetFile);
 }
