@@ -1,13 +1,14 @@
 # plugin-for-android
-plugin-for-android是一个安卓插件化开发框架，支持启动未安装的apk，本框架遵循MIT开源协议，即如果你要直接在你的项目中使用，请在项目中显示 <code> plugin－for－android 提供插件化支持 </code> 字样。
+plugin-for-android是一个安卓插件化开发框架，支持启动未安装的apk。
 
 欢迎 star 和 [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
 
 ## 版本说明
-[![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.0-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
+[![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.1-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
 
 | 版本 |日期| 说明 |
 |---|---|---|
+| 1.0.1|2016-07-11| 测试版本 |
 | 1.0.0|2016-07-07| 测试版本 |
 ## gradle
 插件化核心包［必选］
