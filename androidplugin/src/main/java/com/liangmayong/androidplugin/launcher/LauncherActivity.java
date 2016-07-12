@@ -47,14 +47,14 @@ public final class LauncherActivity extends Activity {
                             finish();
                         } else {
                             if (APLog.DEBUG) {
-                                initViews("main is invalid");
+                                initViews("Not Found Activity<br>---------------------<br>" + launch);
                             } else {
                                 initViews("Error");
                             }
                         }
                     } catch (ClassNotFoundException e) {
                         if (APLog.DEBUG) {
-                            initViews("main is invalid");
+                            initViews("Not Found Activity<br>---------------------<br>" + launch);
                         } else {
                             initViews("Error");
                         }

@@ -44,6 +44,51 @@ public final class APActivityLifeCycle {
     }
 
     /**
+     * exitExceptOne
+     *
+     * @param cls cls
+     */
+    public static void exitExceptOne(Class cls) {
+        for (int i = 0; i < activityList.size(); i++) {
+            try {
+                if (activityList.get(i).getClass().equals(cls)) {
+                    break;
+                }
+                activityList.get(i).finish();
+                activityList.remove(i);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    /**
+     * exitPluginExceptOne
+     *
+     * @param pluginPath pluginPath
+     * @param cls        cls
+     */
+    public static void exitPluginExceptOne(String pluginPath, Class cls) {
+        if (activityListMap.containsKey(pluginPath)) {
+            List<Activity> list = activityListMap.get(pluginPath);
+            if (!list.isEmpty()) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getClass().equals(cls)) {
+                        break;
+                    }
+                    try {
+                        list.get(i).finish();
+                        list.remove(i);
+                    } catch (Exception e) {
+                    }
+                }
+            }
+            if (list.isEmpty()) {
+                activityListMap.remove(pluginPath);
+            }
+        }
+    }
+
+    /**
      * exitPlugin
      *
      * @param pluginPath pluginPath
@@ -55,11 +100,22 @@ public final class APActivityLifeCycle {
                 for (int i = 0; i < list.size(); i++) {
                     try {
                         list.get(i).finish();
+                        list.remove(i);
                     } catch (Exception e) {
                     }
                 }
             }
+            activityListMap.remove(pluginPath);
         }
+    }
+
+    /**
+     * getActivityList
+     *
+     * @return activityList
+     */
+    public static List<Activity> getActivityList() {
+        return activityList;
     }
 
     /**

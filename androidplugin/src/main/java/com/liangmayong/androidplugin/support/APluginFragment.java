@@ -41,10 +41,20 @@ public class APluginFragment extends android.app.Fragment {
         this.fragName = fragName;
     }
 
+    /**
+     * getTragetFragment
+     *
+     * @return tragetFragment
+     */
     public Object getTragetFragment() {
         return tragetFragment;
     }
 
+    /**
+     * getPluginContext
+     *
+     * @return plugin context
+     */
     public Context getPluginContext() {
         return APContext.get(getActivity(), pluginPath);
     }
