@@ -104,7 +104,7 @@ public class APluginManager {
                                     activityThread, "mInstrumentation")));
                 }
             }
-            setDataDir(application, "andriud_plugin");
+            //setDataDir(application, "andriud_plugin");
             isInit = true;
             return true;
         } catch (Exception e) {
