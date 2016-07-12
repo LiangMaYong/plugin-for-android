@@ -246,6 +246,9 @@ public class APContext extends ContextWrapper {
         } else if (name.startsWith(APConstant.GET_PLUGIN_CLASS_LOADER + ":")) {
             return APClassLoader.getClassloader(name.substring((APConstant.GET_PLUGIN_CLASS_LOADER + ":").length()));
         }
+        Object object = APluginManager.getHostService(name);
+        if (object != null)
+            return object;
         return super.getSystemService(name);
     }
 

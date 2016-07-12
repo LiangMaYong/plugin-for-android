@@ -36,11 +36,39 @@ import java.util.Map;
 public class APluginManager {
 
     /**
+     * serviceMap
+     */
+    private static Map<String, Object> serviceMap = new HashMap<String, Object>();
+    /**
      * init status
      */
     private static boolean isInit = false;
 
     private static Application application;
+
+    /**
+     * setHostService
+     *
+     * @param serviceName serviceName
+     * @param object      object
+     */
+    public static void setHostService(String serviceName, Object object) {
+        if (object == null)
+            return;
+        serviceMap.put(serviceName, object);
+    }
+
+    /**
+     * getHostService
+     *
+     * @param serviceName serviceName
+     * @return service obj
+     */
+    public static Object getHostService(String serviceName) {
+        if (serviceMap.containsKey(serviceName))
+            return serviceMap.get(serviceName);
+        return null;
+    }
 
     /**
      * get host application
