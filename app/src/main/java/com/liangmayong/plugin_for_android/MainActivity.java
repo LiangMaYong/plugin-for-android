@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Toast.makeText(getApplicationContext(), getDatabasePath("admin.db").getPath(), Toast.LENGTH_SHORT).show();
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.textView);
         button = (Button) findViewById(R.id.button);

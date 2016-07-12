@@ -1,10 +1,8 @@
 package com.liangmayong.androidplugin.management;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.app.Application;
+import android.app.Instrumentation;
+import android.content.Context;
 
 import com.liangmayong.androidplugin.app.APActivityLifeCycle;
 import com.liangmayong.androidplugin.app.APClassLoader;
@@ -23,9 +21,11 @@ import com.liangmayong.androidplugin.utils.APEventBus;
 import com.liangmayong.androidplugin.utils.APLog;
 import com.liangmayong.androidplugin.utils.APReflect;
 
-import android.app.Application;
-import android.app.Instrumentation;
-import android.content.Context;
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * APluginManager
@@ -62,17 +62,17 @@ public class APluginManager {
      * setDataDir
      *
      * @param application application
-     * @param dirname     dirname
+     * @param dirName     dirName
      */
-    public static final void setDataDir(Application application, String dirname) {
+    public static final void setDataDir(Application application, String dirName) {
         try {
             Object loadedApk = APReflect.getField(Application.class, application, "mLoadedApk");
             if (loadedApk != null) {
-                File file = new File("/data/data/" + application.getPackageName() + "/" + dirname + "/");
-                if (!file.exists()) {
-                    file.mkdirs();
+                File dirFile = new File("data/data/" + application.getPackageName() + "/" + dirName);
+                if (!dirFile.exists()) {
+                    dirFile.mkdirs();
                 }
-                APReflect.setField(loadedApk.getClass(), loadedApk, "mDataDirFile", file);
+                APReflect.setField(loadedApk.getClass(), loadedApk, "mDataDirFile", dirFile);
             }
         } catch (Exception e) {
         }
@@ -104,6 +104,7 @@ public class APluginManager {
                                     activityThread, "mInstrumentation")));
                 }
             }
+            setDataDir(application, "andriud_plugin");
             isInit = true;
             return true;
         } catch (Exception e) {
@@ -319,7 +320,7 @@ public class APluginManager {
             APLog.d("APluginManager not init");
             return null;
         }
-        unloadPlugin(context,pluginPath);
+        unloadPlugin(context, pluginPath);
         if (pluginMap.containsKey(pluginPath)) {
             return pluginMap.get(pluginPath);
         } else {

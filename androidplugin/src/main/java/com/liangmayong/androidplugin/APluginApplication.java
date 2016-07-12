@@ -1,10 +1,8 @@
 package com.liangmayong.androidplugin;
 
-import com.liangmayong.androidplugin.management.APluginManager;
-import com.liangmayong.androidplugin.utils.APEventBus;
-
 import android.app.Application;
-import android.widget.Toast;
+
+import com.liangmayong.androidplugin.management.APluginManager;
 
 /**
  * APluginApplication
