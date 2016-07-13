@@ -193,8 +193,8 @@ public final class APActivityLifeCycle {
                 }
                 ActivityInfo activityInfo = plugin.getActivityInfo(target.getClass().getName());
                 setActivityInfo(activityInfo, target);
-                setIcon(activityInfo.getIconResource(), target);
                 setTheme(activityInfo, resources, target);
+                setIcon(activityInfo.getIconResource(), target);
             }
             if (activityListMap.containsKey(dexPath)) {
                 activityListMap.get(dexPath).add(target);

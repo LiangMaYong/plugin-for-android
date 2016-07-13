@@ -35,6 +35,7 @@ dependencies {
 - Service
 - Fragment
 - .SO
+- Resources
 
 ## 文档资料
 plugin-for-android 项目目前没有开发文档，你可以发邮件给我或者读源码（Please read the fucking source code.）
