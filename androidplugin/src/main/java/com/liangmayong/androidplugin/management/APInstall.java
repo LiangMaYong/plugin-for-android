@@ -92,7 +92,7 @@ public final class APInstall {
                     throw new APInstallException(APInstallException.SIGNTURE_ERROR,
                             "plugin install error:SIGNTURE_ERROR");
                 } else {
-                    APSOLibrary.clearPluginSO(old);
+                    APSOLibrary.clearNativeLibrary(old);
                 }
             }
             // rename To
@@ -104,7 +104,7 @@ public final class APInstall {
             }
             if (plugin != null) {
                 APLog.i("copy plugin native library :" + plugin.getPluginPath());
-                APSOLibrary.copyPluginSO(plugin);
+                APSOLibrary.copyNativeLibrary(plugin);
                 APLog.i("install success");
             }
             return plugin;

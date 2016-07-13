@@ -51,19 +51,15 @@ public final class APSOLibrary {
      *
      * @param plugin plugin
      */
-    public static void copyPluginSO(APlugin plugin) {
-        APLog.d("APSOLibrary CPU_API " + APCpuABI.getCpuABI());
-        APLog.d("APSOLibrary CPU_API2 " + APCpuABI.getCpuABI2());
+    public static void copyNativeLibrary(APlugin plugin) {
+        APCpuABI.printCpuABI();
         if (plugin != null) {
             String targetDir = getLibraryPath(plugin.getPluginPath());
-            ArrayList<String> objDirs = new ArrayList<String>();
-            objDirs.add("lib/" + APCpuABI.getCpuABI());
-            objDirs.add("lib/" + APCpuABI.getCpuABI2());
             File file = new File(targetDir);
             if (!file.exists()) {
                 file.mkdirs();
             }
-            unzipFile(plugin.getPluginPath(), targetDir, objDirs);
+            unzipFile(plugin.getPluginPath(), targetDir, APCpuABI.getNativelibraryDirs());
         }
     }
 
@@ -72,7 +68,7 @@ public final class APSOLibrary {
      *
      * @param plugin plugin
      */
-    public static void clearPluginSO(APlugin plugin) {
+    public static void clearNativeLibrary(APlugin plugin) {
         String targetDir = getLibraryPath(plugin.getPluginPath());
         File file = new File(targetDir);
         if (file.exists()) {
@@ -135,8 +131,11 @@ public final class APSOLibrary {
                     String targetEntry = strEntry.substring(strEntry.lastIndexOf("/") + 1);
                     String libraryEntry = targetDir + "/" + targetEntry;
                     File entryFile = new File(libraryEntry);
-                    if (entryFile != null) {
+                    if (!entryFile.exists()) {
+                        APLog.d("APSOLibrary find library:" + strEntry);
                         saveZipFile(zis, entryFile);
+                    } else {
+                        APLog.d("APSOLibrary " + entryFile + " exists");
                     }
                 }
             }
@@ -153,7 +152,7 @@ public final class APSOLibrary {
     }
 
     /**
-     * saveZipFileandrodi
+     * saveZipFile
      *
      * @param zis       zis
      * @param entryFile entryFile

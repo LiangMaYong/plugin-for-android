@@ -3,6 +3,10 @@ package com.liangmayong.androidplugin.app;
 import android.annotation.TargetApi;
 import android.os.Build;
 
+import com.liangmayong.androidplugin.utils.APLog;
+
+import java.util.ArrayList;
+
 /**
  * APCpuABI
  *
@@ -15,6 +19,8 @@ public class APCpuABI {
     private static String cpuabi1 = "";
     //cpuabi2
     private static String cpuabi2 = "";
+    //libraryDirs
+    private static ArrayList<String> libraryDirs = null;
 
     /**
      * setCpuABI1
@@ -54,4 +60,26 @@ public class APCpuABI {
         return cpuabi2 == null || "".equals(cpuabi2) ? Build.CPU_ABI2 : cpuabi2;
     }
 
+    /**
+     * getNativelibraryDirs
+     *
+     * @return native library dirs
+     */
+    public static ArrayList<String> getNativelibraryDirs() {
+        if (libraryDirs == null) {
+            libraryDirs = new ArrayList<String>();
+            libraryDirs.add("lib/" + APCpuABI.getCpuABI());
+            libraryDirs.add("lib/" + APCpuABI.getCpuABI2());
+        }
+        return libraryDirs;
+    }
+
+
+    /**
+     * printCpuABI
+     */
+    public static void printCpuABI() {
+        APLog.d("APSOLibrary CPU_API " + APCpuABI.getCpuABI());
+        APLog.d("APSOLibrary CPU_API2 " + APCpuABI.getCpuABI2());
+    }
 }
