@@ -12,12 +12,14 @@ import com.liangmayong.androidplugin.management.APluginManager;
 import com.liangmayong.androidplugin.utils.APLog;
 import com.liangmayong.androidplugin.utils.APReflect;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -190,6 +192,8 @@ public final class APActivityLifeCycle {
                     APReflect.setField(target.getClass(), target, "mApplication", plugin.getApplication());
                 }
                 ActivityInfo activityInfo = plugin.getActivityInfo(target.getClass().getName());
+                setActivityInfo(activityInfo, target);
+                setIcon(activityInfo.getIconResource(), target);
                 setTheme(activityInfo, resources, target);
             }
             if (activityListMap.containsKey(dexPath)) {
@@ -245,7 +249,6 @@ public final class APActivityLifeCycle {
                 }
                 if (hasNotSetTheme) {
                     APLog.d("setTheme hasNotSetTheme");
-                    setActivityInfo(activityInfo, target);
                     target.setTheme(resTheme);
                 } else {
                     APLog.d("has setTheme");
@@ -257,6 +260,20 @@ public final class APActivityLifeCycle {
             Theme mTheme = resources.newTheme();
             mTheme.setTo(target.getBaseContext().getTheme());
             APReflect.setField(target.getClass(), target, "mTheme", mTheme);
+        }
+    }
+
+    /**
+     * setIcon
+     *
+     * @param iconResId iconResId
+     * @param activity  activity
+     */
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    private static void setIcon(int iconResId, Activity activity) {
+        //set icon
+        if (Build.VERSION.SDK_INT >= 14) {
+            activity.getActionBar().setIcon(iconResId);
         }
     }
 

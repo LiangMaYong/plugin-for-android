@@ -29,6 +29,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -114,6 +115,12 @@ public final class APlugin implements APEventBus.IEvent {
      */
     public Drawable getPluginIcon() {
         return icon;
+    }
+
+    public ApplicationInfo getApplicationInfo() {
+        if (getPackageInfo() == null)
+            return null;
+        return getPackageInfo().applicationInfo;
     }
 
     /**
@@ -292,6 +299,10 @@ public final class APlugin implements APEventBus.IEvent {
         }
         for (ActivityInfo act : getPackageInfo().activities) {
             if (act.name.equals(actName)) {
+                //act.applicationInfo.i
+                ApplicationInfo info = getApplicationInfo();
+                if (info != null)
+                    act.applicationInfo = info;
                 return act;
             }
         }
