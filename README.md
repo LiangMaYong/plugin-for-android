@@ -32,6 +32,13 @@ dependencies {
     compile 'com.liangmayong:androidplugin-bundle:1.0.1'
 }
 ```
+## Support
+- Activity
+- BroadcastReceiver
+- Service
+- Fragment
+- .SO
+
 ## Documentation
 plugin-for-android currently has no documentation, If you are interested in plugin-for-android,please send email to me.
 ##Reference resources
