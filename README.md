@@ -38,6 +38,7 @@ dependencies {
 - Service
 - Fragment
 - .SO
+- Resources
 
 ## Documentation
 plugin-for-android currently has no documentation, If you are interested in plugin-for-android,please send email to me.
