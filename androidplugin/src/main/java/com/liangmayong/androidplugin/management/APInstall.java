@@ -103,6 +103,7 @@ public final class APInstall {
             } catch (Exception e) {
             }
             if (plugin != null) {
+                APLog.i("copy plugin native library :" + plugin.getPluginPath());
                 APSOLibrary.copyPluginSO(plugin);
                 APLog.i("install success");
             }
@@ -114,7 +115,7 @@ public final class APInstall {
 
     /**
      * get plugin file</br>
-     * data/data/{host:packageName}/androidplugins/{plugin:packageName}/plugin.
+     * data dir/app_androidplugins/{plugin:packageName}/plugin.
      * apk
      *
      * @param context     context

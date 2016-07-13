@@ -11,6 +11,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import com.liangmayong.androidplugin.management.APlugin;
+import com.liangmayong.androidplugin.utils.APLog;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -34,7 +35,12 @@ public final class APSOLibrary {
      */
     public static String getLibraryPath(String pluginPath) {
         try {
-            return pluginPath.substring(0, pluginPath.lastIndexOf("."));
+            String libraryDir = new File(pluginPath).getParent() + "/libs/";
+            File file = new File(libraryDir);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            return file.getPath();
         } catch (Exception e) {
         }
         return "";
@@ -46,14 +52,16 @@ public final class APSOLibrary {
      * @param plugin plugin
      */
     public static void copyPluginSO(APlugin plugin) {
+        APLog.d("APSOLibrary CPU_API " + APCpuABI.getCpuABI());
+        APLog.d("APSOLibrary CPU_API2 " + APCpuABI.getCpuABI2());
         if (plugin != null) {
             String targetDir = getLibraryPath(plugin.getPluginPath());
             ArrayList<String> objDirs = new ArrayList<String>();
-            objDirs.add("lib/" + getCpuABI());
-            objDirs.add("lib/" + getCpuABI2());
+            objDirs.add("lib/" + APCpuABI.getCpuABI());
+            objDirs.add("lib/" + APCpuABI.getCpuABI2());
             File file = new File(targetDir);
-            if (file.exists()) {
-                file.delete();
+            if (!file.exists()) {
+                file.mkdirs();
             }
             unzipFile(plugin.getPluginPath(), targetDir, objDirs);
         }
@@ -70,18 +78,6 @@ public final class APSOLibrary {
         if (file.exists()) {
             file.delete();
         }
-    }
-
-    @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.DONUT)
-    private static final String getCpuABI() {
-        return Build.CPU_ABI;
-    }
-
-    @SuppressWarnings("deprecation")
-    @TargetApi(Build.VERSION_CODES.FROYO)
-    private static final String getCpuABI2() {
-        return Build.CPU_ABI2;
     }
 
     /**
@@ -135,11 +131,17 @@ public final class APSOLibrary {
                     }
                 }
                 if (find) {
+                    APLog.d("APSOLibrary find library:" + strEntry);
                     String targetEntry = strEntry.substring(strEntry.lastIndexOf("/") + 1);
-                    saveZipFile(zis, targetDir + "/" + targetEntry);
+                    String libraryEntry = targetDir + "/" + targetEntry;
+                    File entryFile = new File(libraryEntry);
+                    if (entryFile != null) {
+                        saveZipFile(zis, entryFile);
+                    }
                 }
             }
         } catch (Exception e) {
+            APLog.d("APSOLibrary unzipFile" + zipFile, e);
         } finally {
             try {
                 if (null != zis) {
@@ -151,23 +153,23 @@ public final class APSOLibrary {
     }
 
     /**
-     * saveZipFile
+     * saveZipFileandrodi
      *
-     * @param zis      zis
-     * @param filePath filePath
+     * @param zis       zis
+     * @param entryFile entryFile
      * @throws Exception e
      */
-    private final static void saveZipFile(ZipInputStream zis, String filePath) throws Exception {
+    private final static void saveZipFile(ZipInputStream zis, File entryFile) throws Exception {
         BufferedOutputStream dest = null;
         try {
             int buffer = 4096;
             byte data[] = new byte[buffer];
             int count;
-            File entryFile = new File(filePath);
-            File entryDir = new File(entryFile.getParent());
-            if (!entryDir.exists()) {
-                entryDir.mkdirs();
+            if (entryFile.exists()) {
+                entryFile.delete();
             }
+            File entryDir = new File(entryFile.getParent());
+            APLog.d("APSOLibrary saveZipFile:" + entryDir.getPath());
             FileOutputStream fos = new FileOutputStream(entryFile);
             dest = new BufferedOutputStream(fos, buffer);
             while ((count = zis.read(data, 0, buffer)) != -1) {
@@ -175,6 +177,7 @@ public final class APSOLibrary {
             }
             dest.flush();
         } catch (Exception e) {
+            APLog.d("APSOLibrary saveZipFile:" + entryFile.getPath(), e);
         } finally {
             if (null != dest) {
                 dest.close();

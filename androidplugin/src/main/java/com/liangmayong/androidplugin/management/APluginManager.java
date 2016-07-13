@@ -96,7 +96,8 @@ public class APluginManager {
         try {
             Object loadedApk = APReflect.getField(Application.class, application, "mLoadedApk");
             if (loadedApk != null) {
-                File dirFile = new File("data/data/" + application.getPackageName() + "/" + dirName);
+                // "/data/data/" is must
+                File dirFile = new File("/data/data/" + application.getPackageName() + "/" + dirName);
                 if (!dirFile.exists()) {
                     dirFile.mkdirs();
                 }

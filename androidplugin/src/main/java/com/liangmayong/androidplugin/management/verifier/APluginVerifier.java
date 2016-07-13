@@ -30,7 +30,7 @@ public interface APluginVerifier {
     boolean installVerifier(File targetFile);
 
     /**
-     * unzipVerifier
+     * decompressionVerifier
      *
      * @param targetFile targetFile
      * @return unzipFile
