@@ -58,7 +58,7 @@ public final class APInstall {
      * @throws APInstallException e
      */
     public static APlugin install(Context context, File tempFile) throws APInstallException {
-
+        long install_time = System.currentTimeMillis();
         if (APluginManager.getPluginVerifier() != null) {
             //uncode apk file
             tempFile = APluginManager.getPluginVerifier().decompressionVerifier(tempFile);
@@ -105,7 +105,7 @@ public final class APInstall {
             if (plugin != null) {
                 APLog.i("copy plugin native library :" + plugin.getPluginPath());
                 APSOLibrary.copyNativeLibrary(plugin);
-                APLog.i("install success");
+                APLog.i("install success use time:" + (System.currentTimeMillis() - install_time));
             }
             return plugin;
         } else {

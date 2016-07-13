@@ -18,7 +18,7 @@ import com.liangmayong.androidplugin.utils.APReflect;
 import java.lang.reflect.Constructor;
 
 /**
- * PluginFragment
+ * APluginFragmentV4
  *
  * @author LiangMaYong
  * @version 1.0
@@ -41,10 +41,20 @@ public class APluginFragmentV4 extends android.support.v4.app.Fragment {
         this.fragName = fragName;
     }
 
+    /**
+     * getTragetFragment
+     *
+     * @return tragetFragment
+     */
     public Object getTragetFragment() {
         return tragetFragment;
     }
 
+    /**
+     * getPluginContext
+     *
+     * @return plugin context
+     */
     public Context getPluginContext() {
         return APContext.get(getActivity(), pluginPath);
     }

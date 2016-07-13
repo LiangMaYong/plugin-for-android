@@ -9,6 +9,7 @@ import com.liangmayong.androidplugin.management.APlugin;
 import com.liangmayong.androidplugin.management.APInstall;
 import com.liangmayong.androidplugin.management.exception.APInstallException;
 import com.liangmayong.androidplugin.management.listener.OnPluginInstallListener;
+import com.liangmayong.androidplugin.utils.APLog;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -69,9 +70,10 @@ public class APThreadInstallByStream extends Thread {
             dexTemp.mkdirs();
             handler.obtainMessage(ING, 1, allstep, "TEMP_SAVE").sendToTarget();
             File pluginTemp = new File(dexTemp, System.currentTimeMillis() + ".apk");
+            long savefile_time = System.currentTimeMillis();
             if (!pluginTemp.exists()) {
                 out = new FileOutputStream(pluginTemp);
-                byte[] buffer = new byte[2048];
+                byte[] buffer = new byte[4096];
                 int read;
                 while ((read = inputStream.read(buffer)) != -1) {
                     out.write(buffer, 0, read);
@@ -82,6 +84,7 @@ public class APThreadInstallByStream extends Thread {
                 out.close();
                 out = null;
             }
+            APLog.i("save file success by stream use time:" + (System.currentTimeMillis() - savefile_time));
             try {
                 handler.obtainMessage(ING, 2, allstep, "INSTALL_START").sendToTarget();
                 APlugin plugin = APInstall.install(context, pluginTemp);
