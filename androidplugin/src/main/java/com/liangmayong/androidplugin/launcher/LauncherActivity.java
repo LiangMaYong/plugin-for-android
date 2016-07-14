@@ -3,6 +3,7 @@ package com.liangmayong.androidplugin.launcher;
 import java.util.List;
 import java.util.Map;
 
+import com.liangmayong.androidplugin.app.APActivityLifeCycle;
 import com.liangmayong.androidplugin.management.APluginLauncher;
 import com.liangmayong.androidplugin.utils.APLog;
 import com.liangmayong.androidplugin.utils.APXmlParser;
@@ -28,10 +29,15 @@ import android.widget.TextView;
  */
 public final class LauncherActivity extends Activity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (APActivityLifeCycle.getActivityList().size() > 1) {
+            initViews("Not Found Activity");
+            return;
+        }
         try {
             List<Map<String, String>> mapLists = APXmlParser.readXml(getAssets().open("androidplugin.xml"),
                     "android-plugin");

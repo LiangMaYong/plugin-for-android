@@ -171,7 +171,11 @@ public final class APActivityLifeCycle {
         if (!activityList.contains(target)) {
             activityList.add(target);
         }
-        String dexPath = target.getIntent().getStringExtra(APConstant.INTENT_PLUGIN_DEX);
+        String dexPath = "";
+        try {
+            dexPath = target.getIntent().getStringExtra(APConstant.INTENT_PLUGIN_DEX);
+        } catch (Exception e) {
+        }
         if (!mDexPath.equals(dexPath)) {
             mDexPath = dexPath == null ? "" : dexPath;
             try {
@@ -186,6 +190,13 @@ public final class APActivityLifeCycle {
             APReflect.setField(target.getClass(), target, "mResources", resources);
             APReflect.setField(target.getClass(), target, "mBase", context);
             APlugin plugin = APluginManager.getPluginByPluginPath(target, dexPath);
+            Bundle bundle = APExtras.getExtras(target.getClass().getName());
+            if (bundle != null) {
+                Intent newintent = new Intent();
+                newintent.putExtras(bundle);
+                newintent.setExtrasClassLoader(APClassLoader.getCurrentClassLoader());
+                target.setIntent(newintent);
+            }
             if (plugin != null) {
                 target.setTitle(plugin.getPluginLable());
                 if (plugin.getApplication() != null) {
@@ -236,16 +247,13 @@ public final class APActivityLifeCycle {
         boolean flag = false;
         if (activityInfo != null) {
             int resTheme = activityInfo.getThemeResource();
-            APLog.d("setTheme : " + resTheme);
             if (resTheme != 0) {
                 flag = true;
                 boolean hasNotSetTheme = true;
                 try {
                     Object theme = APReflect.getField(ContextThemeWrapper.class, target, "mTheme");
                     hasNotSetTheme = theme == null ? true : false;
-                    APLog.d("hasNotSetTheme:" + hasNotSetTheme);
                 } catch (Exception e) {
-                    APLog.d("read hasNotSetTheme", e);
                 }
                 if (hasNotSetTheme) {
                     APLog.d("setTheme hasNotSetTheme");

@@ -20,6 +20,17 @@ import dalvik.system.DexClassLoader;
 @TargetApi(Build.VERSION_CODES.CUPCAKE)
 public final class APClassLoader {
 
+    private static ClassLoader currentClassLoader;
+
+    /**
+     * getCurrentClassLoader
+     *
+     * @return currentClassLoader
+     */
+    public static ClassLoader getCurrentClassLoader() {
+        return currentClassLoader;
+    }
+
     /**
      * classloaders
      */
@@ -84,6 +95,7 @@ public final class APClassLoader {
                 loadPaths.add(pluginPath);
             }
         }
+        currentClassLoader = classLoader;
         return classLoader;
     }
 
