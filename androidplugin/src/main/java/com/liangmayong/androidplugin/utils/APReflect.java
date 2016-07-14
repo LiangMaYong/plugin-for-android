@@ -1,5 +1,7 @@
 package com.liangmayong.androidplugin.utils;
 
+import android.util.Log;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -33,6 +35,28 @@ public class APReflect {
     }
 
     /**
+     * printClassInfo
+     *
+     * @param clazz clazz
+     */
+    public static void printClassInfo(Class<?> clazz) {
+        if (clazz != null) {
+            Field[] fields = clazz.getDeclaredFields();
+            if (fields != null && fields.length > 0) {
+                for (int i = 0; i < fields.length; i++) {
+                    APLog.d(fields[i].getName() + " FieldType:" + fields[i].getDeclaringClass().getName());
+                }
+            }
+            Method[] methods = clazz.getDeclaredMethods();
+            if (methods != null && methods.length > 0) {
+                for (int i = 0; i < methods.length; i++) {
+                    APLog.d(methods[i].getName() + " ParameterTypes:" + methods[i].getGenericParameterTypes());
+                }
+            }
+        }
+    }
+
+    /**
      * getFields
      *
      * @param clazz  clazz
@@ -41,6 +65,9 @@ public class APReflect {
      */
     public static Map<String, Object> getFields(Class<?> clazz, Object object) {
         Map<String, Object> map = new HashMap<String, Object>();
+        if (clazz == null) {
+            APLog.d("clazz == null");
+        }
         for (; clazz != Object.class; clazz = clazz.getSuperclass()) {
             Field[] fields = clazz.getDeclaredFields();
             if (fields != null && fields.length > 0) {
@@ -49,8 +76,7 @@ public class APReflect {
                     try {
                         fields[i].setAccessible(true);
                         value = fields[i].get(object);
-                    } catch (IllegalArgumentException e1) {
-                    } catch (IllegalAccessException e1) {
+                    } catch (Exception e1) {
                     }
                     map.put(fields[i].getName(), value);
                 }

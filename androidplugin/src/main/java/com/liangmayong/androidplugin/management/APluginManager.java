@@ -2,10 +2,13 @@ package com.liangmayong.androidplugin.management;
 
 import android.app.Application;
 import android.app.Instrumentation;
+import android.app.LoadedApk;
 import android.content.Context;
+import android.os.Parcelable;
 
 import com.liangmayong.androidplugin.app.APActivityLifeCycle;
 import com.liangmayong.androidplugin.app.APClassLoader;
+import com.liangmayong.androidplugin.app.APHostSuperClassLoader;
 import com.liangmayong.androidplugin.app.APInstrumentation;
 import com.liangmayong.androidplugin.management.db.APTable;
 import com.liangmayong.androidplugin.management.exception.APInstallException;
@@ -132,11 +135,15 @@ public class APluginManager {
                             new APInstrumentation((Instrumentation) APReflect.getField(activityThread.getClass(),
                                     activityThread, "mInstrumentation")));
                 }
+                //replace host classLoader
+                ClassLoader classLoader = (ClassLoader) APReflect.getField(LoadedApk.class, loadedApk, "mClassLoader");
+                APReflect.setField(loadedApk.getClass(), loadedApk, "mClassLoader",
+                        new APHostSuperClassLoader(classLoader));
             }
-            //setDataDir(application, "andriud_plugin");
             isInit = true;
             return true;
         } catch (Exception e) {
+            APLog.d("APluginManager init error", e);
         }
         return false;
     }
@@ -152,6 +159,10 @@ public class APluginManager {
                                final OnPluginInstallListener installListener) {
         if (!isInit) {
             APLog.d("APluginManager not init");
+            if (installListener != null) {
+                installListener.onFailed(
+                        new APInstallException(APInstallException.MANAGER_NOT_INIT, "APluginManager not init"));
+            }
             return;
         }
         APThreadInstallByStream installThread = new APThreadInstallByStream(context, stream, installListener);

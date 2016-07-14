@@ -1,17 +1,5 @@
 package com.liangmayong.androidplugin.app;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.liangmayong.androidplugin.app.listener.OnActivityLifeCycleListener;
-import com.liangmayong.androidplugin.management.APlugin;
-import com.liangmayong.androidplugin.management.APluginManager;
-import com.liangmayong.androidplugin.utils.APLog;
-import com.liangmayong.androidplugin.utils.APReflect;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -24,6 +12,18 @@ import android.os.Bundle;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Window;
+
+import com.liangmayong.androidplugin.app.listener.OnActivityLifeCycleListener;
+import com.liangmayong.androidplugin.management.APlugin;
+import com.liangmayong.androidplugin.management.APluginManager;
+import com.liangmayong.androidplugin.utils.APLog;
+import com.liangmayong.androidplugin.utils.APReflect;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * APActivityLifeCycle
@@ -272,7 +272,7 @@ public final class APActivityLifeCycle {
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private static void setIcon(int iconResId, Activity activity) {
         //set icon
-        if (Build.VERSION.SDK_INT >= 14) {
+        if (Build.VERSION.SDK_INT >= 14 && activity.getActionBar() != null) {
             activity.getActionBar().setIcon(iconResId);
         }
     }
