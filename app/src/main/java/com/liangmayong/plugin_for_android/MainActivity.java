@@ -1,7 +1,7 @@
 package com.liangmayong.plugin_for_android;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +12,6 @@ import com.liangmayong.androidplugin.management.APluginManager;
 import com.liangmayong.androidplugin.management.exception.APInstallException;
 import com.liangmayong.androidplugin.management.listener.OnPluginInstallListener;
 import com.liangmayong.androidplugin.management.listener.OnPluginLoadListener;
-import com.liangmayong.androidplugin.support.APluginFragment;
 
 import java.io.IOException;
 
@@ -26,10 +25,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isLoad = false;
     private boolean isInstall = false;
     private APlugin plugin;
-//    private String packageName = "com.example.plplayer";
-//    private String apkPath = "plugins/PLPlayer.apk";
-    private String packageName = "com.liangmayong.bundle";
-    private String apkPath = "plugins/bundle.apk";
+    private String packageName = "com.example.plplayer";
+    private String apkPath = "plugins/PLPlayer.apk";
+    //private String packageName = "com.liangmayong.bundle";
+    //private String apkPath = "plugins/bundle.apk";
 
 
     @Override
