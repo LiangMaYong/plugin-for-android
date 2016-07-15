@@ -19,13 +19,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcel;
-import android.util.ArrayMap;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * APInstrumentation
@@ -246,12 +241,8 @@ public class APInstrumentation extends Instrumentation {
         String launchName = "";
         try {
             launchName = intent.getStringExtra(APConstant.INTENT_PLUGIN_LAUNCH);
-            APLog.d("newActivity " + launchName);
         } catch (Exception e) {
             APLog.d("newActivity not found", e);
-            if (APExtras.getExtras(className) != null) {
-                launchName = APExtras.getExtras(className).getString(APConstant.INTENT_PLUGIN_LAUNCH);
-            }
         }
         if (launchName != null && !"".equals(launchName)) {
             ClassLoader pluginLoader = null;
@@ -383,8 +374,16 @@ public class APInstrumentation extends Instrumentation {
                 dexPath = target.getIntent().getStringExtra(APConstant.INTENT_PLUGIN_DEX);
             }
             if (dexPath != null && !"".equals(dexPath)) {
+                //save extras
+                Bundle extras = intent.getExtras();
+                if (extras != null) {
+                    // reset extras
+                    extras.putString(APConstant.INTENT_PLUGIN_DEX, dexPath);
+                    extras.putString(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
+                    extras.setClassLoader(who.getClassLoader());
+                    APIntentExtras.saveExtras(intent.getComponent().getClassName(), extras);
+                }
                 Intent newIntent = new Intent(who, LauncherActivity.class);
-                APExtras.saveExtras(intent.getComponent().getClassName(), intent.getExtras());
                 newIntent.putExtra(APConstant.INTENT_PLUGIN_DEX, dexPath);
                 newIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
                 return proxyExecStartActivity(who, contextThread, token, target, newIntent, requestCode);
@@ -402,8 +401,17 @@ public class APInstrumentation extends Instrumentation {
                 dexPath = target.getIntent().getStringExtra(APConstant.INTENT_PLUGIN_DEX);
             }
             if (dexPath != null && !"".equals(dexPath)) {
+                //save extras
+                Bundle extras = intent.getExtras();
+                if (extras != null) {
+                    // reset extras
+                    extras.putString(APConstant.INTENT_PLUGIN_DEX, dexPath);
+                    extras.putString(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
+                    extras.setClassLoader(who.getClassLoader());
+                    APIntentExtras.saveExtras(intent.getComponent().getClassName(), extras);
+                }
+                //new intent
                 Intent newIntent = new Intent(who, LauncherActivity.class);
-                APExtras.saveExtras(intent.getComponent().getClassName(), intent.getExtras());
                 newIntent.putExtra(APConstant.INTENT_PLUGIN_DEX, dexPath);
                 newIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
                 return proxyExecStartActivity(who, contextThread, token, target, newIntent, requestCode, options);

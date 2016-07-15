@@ -190,11 +190,10 @@ public final class APActivityLifeCycle {
             APReflect.setField(target.getClass(), target, "mResources", resources);
             APReflect.setField(target.getClass(), target, "mBase", context);
             APlugin plugin = APluginManager.getPluginByPluginPath(target, dexPath);
-            Bundle bundle = APExtras.getExtras(target.getClass().getName());
+            Bundle bundle = APIntentExtras.getExtras(target.getClass().getName());
             if (bundle != null) {
                 Intent newintent = new Intent();
                 newintent.putExtras(bundle);
-                newintent.setExtrasClassLoader(APClassLoader.getCurrentClassLoader());
                 target.setIntent(newintent);
             }
             if (plugin != null) {
