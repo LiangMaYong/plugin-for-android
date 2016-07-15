@@ -4,10 +4,11 @@ plugin-for-android是一个安卓插件化开发框架，支持启动未安装�
 欢迎 star 和 [Issues](https://github.com/LiangMaYong/plugin-for-android/issues)
 
 ## 版本说明
-[![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.1-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
+[![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.2-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
 
 | 版本 |日期| 说明 |
 |---|---|---|
+| 1.0.2|2016-07-15| 修复BUG |
 | 1.0.1|2016-07-11| 测试版本 |
 | 1.0.0|2016-07-07| 测试版本 |
 ## gradle

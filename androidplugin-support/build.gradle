@@ -18,8 +18,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:24.0.0'
-    compile project(':androidplugin')
+    provided 'com.android.support:support-v4:24.0.0'
+    provided project(':androidplugin')
 }
 
 apply from: 'https://raw.githubusercontent.com/LiangMaYong/android-library-gradle-publish/master/library-MIT.gradle'
