@@ -241,8 +241,8 @@ public class APInstrumentation extends Instrumentation {
         String launchName = "";
         try {
             launchName = intent.getStringExtra(APConstant.INTENT_PLUGIN_LAUNCH);
+            APLog.d("newActivity : " + launchName);
         } catch (Exception e) {
-            APLog.d("newActivity not found", e);
         }
         if (launchName != null && !"".equals(launchName)) {
             ClassLoader pluginLoader = null;

@@ -254,11 +254,9 @@ public final class APActivityLifeCycle {
                     hasNotSetTheme = theme == null ? true : false;
                 } catch (Exception e) {
                 }
+                APLog.d("hasSetTheme:" + !hasNotSetTheme);
                 if (hasNotSetTheme) {
-                    APLog.d("setTheme hasNotSetTheme");
                     target.setTheme(resTheme);
-                } else {
-                    APLog.d("has setTheme");
                 }
             }
         }
