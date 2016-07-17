@@ -12,6 +12,8 @@ import com.liangmayong.androidplugin.management.APluginManager;
 import com.liangmayong.androidplugin.management.exception.APInstallException;
 import com.liangmayong.androidplugin.management.listener.OnPluginInstallListener;
 import com.liangmayong.androidplugin.management.listener.OnPluginLoadListener;
+import com.liangmayong.androidplugin.utils.APLog;
+import com.liangmayong.androidplugin.utils.APReflect;
 
 import java.io.IOException;
 

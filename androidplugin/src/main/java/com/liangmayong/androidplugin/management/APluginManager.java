@@ -137,8 +137,7 @@ public class APluginManager {
                 }
                 //replace host classLoader
                 ClassLoader classLoader = (ClassLoader) APReflect.getField(LoadedApk.class, loadedApk, "mClassLoader");
-                APReflect.setField(loadedApk.getClass(), loadedApk, "mClassLoader",
-                        new APHostSuperClassLoader(classLoader));
+                APReflect.setField(loadedApk.getClass(), loadedApk, "mClassLoader", APHostSuperClassLoader.getHostSuperClassLoader(classLoader));
             }
             isInit = true;
             return true;
