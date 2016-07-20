@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.Instrumentation;
 import android.app.LoadedApk;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.os.Parcelable;
 
 import com.liangmayong.androidplugin.app.APActivityLifeCycle;
@@ -37,6 +38,33 @@ import java.util.Map;
  * @version 1.0
  */
 public class APluginManager {
+
+    //debug
+    private static boolean debug = true;
+
+    /**
+     * isDebug
+     *
+     * @return debug
+     */
+    public static boolean isDebug() {
+        return debug;
+    }
+
+    /**
+     * isDebugable
+     *
+     * @param context context
+     * @return true or false
+     */
+    private static boolean isDebugable(Context context) {
+        try {
+            ApplicationInfo info = context.getApplicationInfo();
+            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (Exception e) {
+        }
+        return true;
+    }
 
     /**
      * serviceMap
@@ -125,6 +153,7 @@ public class APluginManager {
             APLog.d("APluginManager.init() application not is null");
             return false;
         }
+        debug = isDebugable(application);
         APluginManager.application = application;
         try {
             Object loadedApk = APReflect.getField(Application.class, application, "mLoadedApk");

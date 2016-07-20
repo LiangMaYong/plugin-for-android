@@ -159,7 +159,14 @@ public class APContext extends ContextWrapper {
             } else {
                 proxyIntent.putExtra(APConstant.INTENT_PLUGIN_DEX, dexPath);
             }
-            proxyIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, service.getComponent().getClassName());
+            String launch = service.getStringExtra(APConstant.INTENT_PLUGIN_LAUNCH);
+            if ((launch == null || "".equals(launch))) {
+                try {
+                    launch = service.getComponent().getClassName();
+                } catch (Exception e) {
+                }
+            }
+            proxyIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, launch);
             return super.startService(proxyIntent);
         }
         return super.startService(service);

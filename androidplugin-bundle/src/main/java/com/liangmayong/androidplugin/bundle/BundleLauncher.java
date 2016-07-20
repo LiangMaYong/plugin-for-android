@@ -28,8 +28,7 @@ public final class BundleLauncher {
     public static ComponentName startService(Context context, Intent service, String dexPath, String serName) {
         try {
             ClassLoader classLoader = BundleSystemService.getHostClassLoader(context);
-            Intent proxyIntent = new Intent(context,
-                    classLoader.loadClass("com.liangmayong.androidplugin.launcher.LauncherService"));
+            Intent proxyIntent = new Intent();
             proxyIntent.putExtras(service);
             if (service != null) {
                 proxyIntent.putExtras(service);
@@ -54,8 +53,7 @@ public final class BundleLauncher {
     public static void startActivity(Context context, Intent intent, String dexPath, String activityName) {
         try {
             ClassLoader classLoader = BundleSystemService.getHostClassLoader(context);
-            Intent newIntent = new Intent(context,
-                    classLoader.loadClass("com.liangmayong.androidplugin.launcher.LauncherActivity"));
+            Intent newIntent = new Intent();
             if (intent != null) {
                 newIntent.putExtras(intent);
                 newIntent.addFlags(intent.getFlags());
@@ -80,8 +78,7 @@ public final class BundleLauncher {
                                                     String activityName) {
         ClassLoader classLoader = BundleSystemService.getHostClassLoader(activity);
         try {
-            Intent newIntent = new Intent(activity,
-                    classLoader.loadClass("com.liangmayong.androidplugin.launcher.LauncherActivity"));
+            Intent newIntent = new Intent();
             if (intent != null) {
                 newIntent.putExtras(intent);
                 newIntent.addFlags(intent.getFlags());

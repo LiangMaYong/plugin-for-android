@@ -34,7 +34,7 @@ public class APluginLauncher {
 	 * @return ComponentName
 	 */
 	public static ComponentName startService(Context context, Intent service, String dexPath, String serName) {
-		Intent proxyIntent = new Intent(context, LauncherService.class);
+		Intent proxyIntent = new Intent();
 		proxyIntent.putExtras(service);
 		if (service != null) {
 			proxyIntent.putExtras(service);
@@ -58,7 +58,7 @@ public class APluginLauncher {
 	 *            activityName
 	 */
 	public static void startActivity(Context context, Intent intent, String dexPath, String activityName) {
-		Intent newIntent = new Intent(context, LauncherActivity.class);
+		Intent newIntent = new Intent();
 		if (intent != null) {
 			newIntent.putExtras(intent);
 			newIntent.addFlags(intent.getFlags());
@@ -84,7 +84,7 @@ public class APluginLauncher {
 	 */
 	public static final void startActivityForResult(Activity activity, Intent intent, int requestCode, String dexPath,
 			String activityName) {
-		Intent newIntent = new Intent(activity, LauncherActivity.class);
+		Intent newIntent = new Intent();
 		if (intent != null) {
 			newIntent.putExtras(intent);
 			newIntent.addFlags(intent.getFlags());

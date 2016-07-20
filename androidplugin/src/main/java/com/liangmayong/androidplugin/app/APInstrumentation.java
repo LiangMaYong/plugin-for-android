@@ -259,6 +259,8 @@ public class APInstrumentation extends Instrumentation {
             } catch (Exception e) {
                 return newErrorActivity();
             }
+        } else {
+            cl = APHostSuperClassLoader.getHostSuperClassLoader(cl);
         }
         return mInstrumentation.newActivity(cl, className, intent);
     }
@@ -489,6 +491,9 @@ public class APInstrumentation extends Instrumentation {
      */
     protected ActivityResult proxyExecStartActivity(Context who, IBinder contextThread, IBinder token, Activity target,
                                                     Intent intent, int requestCode, Bundle options) {
+        if (intent.getComponent() == null) {
+            intent.setClassName(who, LauncherActivity.class.getName());
+        }
         try {
             return (ActivityResult) APReflect.method(Instrumentation.class, mInstrumentation, "execStartActivity", Context.class, IBinder.class, IBinder.class, Activity.class, Intent.class, int.class, Bundle.class).invoke(who, contextThread, token, target, intent, requestCode, options);
         } catch (Exception e) {

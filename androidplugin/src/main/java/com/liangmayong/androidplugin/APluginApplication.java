@@ -1,6 +1,8 @@
 package com.liangmayong.androidplugin;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 
 import com.liangmayong.androidplugin.management.APluginManager;
 
@@ -18,6 +20,8 @@ public class APluginApplication extends Application {
         // init aplugin manager
         APluginManager.init(this);
     }
+
+
 
     @Override
     public void onLowMemory() {
