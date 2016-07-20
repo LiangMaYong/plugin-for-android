@@ -300,9 +300,12 @@ public final class APlugin implements APEventBus.IEvent {
         for (ActivityInfo act : getPackageInfo().activities) {
             if (act.name.equals(actName)) {
                 //act.applicationInfo.i
-                ApplicationInfo info = getApplicationInfo();
-                if (info != null)
-                    act.applicationInfo = info;
+                try {
+                    ApplicationInfo info = getApplicationInfo();
+                    if (info != null)
+                        act.applicationInfo = info;
+                } catch (Exception e) {
+                }
                 return act;
             }
         }

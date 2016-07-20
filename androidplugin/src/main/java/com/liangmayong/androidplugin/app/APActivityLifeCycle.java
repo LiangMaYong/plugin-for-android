@@ -187,8 +187,14 @@ public final class APActivityLifeCycle {
         if (dexPath != null && !"".equals(dexPath)) {
             APResources resources = APResources.getResources(dexPath);
             Context context = APContext.get(target.getBaseContext(), dexPath);
-            APReflect.setField(target.getClass(), target, "mResources", resources);
-            APReflect.setField(target.getClass(), target, "mBase", context);
+            boolean flag = APReflect.setField(target.getClass(), target, "mResources", resources);
+            if (!flag) {
+                APLog.d("onCreate set mResources error");
+            }
+            boolean flagCtx = APReflect.setField(target.getClass(), target, "mBase", context);
+            if (!flagCtx) {
+                APLog.d("onCreate set mBase error");
+            }
             APlugin plugin = APluginManager.getPluginByPluginPath(target, dexPath);
             Bundle bundle = APIntentExtras.getExtras(target.getClass().getName());
             if (bundle != null) {
@@ -202,9 +208,11 @@ public final class APActivityLifeCycle {
                     APReflect.setField(target.getClass(), target, "mApplication", plugin.getApplication());
                 }
                 ActivityInfo activityInfo = plugin.getActivityInfo(target.getClass().getName());
-                setActivityInfo(activityInfo, target);
-                setTheme(activityInfo, resources, target);
-                setIcon(activityInfo.getIconResource(), target);
+                if (activityInfo != null) {
+                    setActivityInfo(activityInfo, target);
+                    setTheme(activityInfo, resources, target);
+                    //setIcon(activityInfo.getIconResource(), target);
+                }
             }
             if (activityListMap.containsKey(dexPath)) {
                 activityListMap.get(dexPath).add(target);
@@ -278,7 +286,10 @@ public final class APActivityLifeCycle {
     private static void setIcon(int iconResId, Activity activity) {
         //set icon
         if (Build.VERSION.SDK_INT >= 14 && activity.getActionBar() != null) {
-            activity.getActionBar().setIcon(iconResId);
+            try {
+                activity.getActionBar().setIcon(iconResId);
+            } catch (Exception e) {
+            }
         }
     }
 
