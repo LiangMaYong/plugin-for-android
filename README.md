@@ -6,7 +6,7 @@ Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issu
 [中文](https://github.com/LiangMaYong/plugin-for-android/blob/master/zh.md)
 
 # version
-[![LatestVersion](https://img.shields.io/badge/LatestVersion-1.0.2-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
+[![LatestVersion](https://img.shields.io/badge/LatestVersion-0.1.1-brightgreen.svg?style=plastic) ](https://github.com/LiangMaYong/plugin-for-android/)
 
 | version |date| note |
 |---|---|---|
@@ -16,19 +16,19 @@ Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issu
 plugin framework core
 ```
 dependencies {
-    compile 'com.liangmayong:androidplugin:1.0.2'
+    compile 'com.liangmayong:androidplugin:0.1.1'
 }
 ```
 plugin v4 fragment support
 ```
 dependencies {
-   compile 'com.liangmayong:androidplugin-support:1.0.2'
+   compile 'com.liangmayong:androidplugin-support:0.1.1'
 }
 ```
 plugin bundle
 ```
 dependencies {
-    compile 'com.liangmayong:androidplugin-bundle:1.0.2'
+    compile 'com.liangmayong:androidplugin-bundle:0.1.1'
 }
 ```
 ## Support
