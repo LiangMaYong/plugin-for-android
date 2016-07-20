@@ -10,9 +10,7 @@ Welcome Star and [Issues](https://github.com/LiangMaYong/plugin-for-android/issu
 
 | version |date| note |
 |---|---|---|
-| 1.0.2|2016-07-15| Fix bug |
-| 1.0.1|2016-07-11| Fix bug |
-| 1.0.0|2016-07-07| Test |
+| 0.1.1 |2016-07-20| Test |
 
 ## gradle
 plugin framework core

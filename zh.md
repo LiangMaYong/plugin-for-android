@@ -8,26 +8,24 @@ plugin-for-android是一个安卓插件化开发框架，支持启动未安装�
 
 | 版本 |日期| 说明 |
 |---|---|---|
-| 1.0.2|2016-07-15| 修复BUG |
-| 1.0.1|2016-07-11| 测试版本 |
-| 1.0.0|2016-07-07| 测试版本 |
+| 0.1.1 |2016-07-20| 测试版本 |
 ## gradle
 插件化核心包［必选］
 ```
 dependencies {
-    compile 'com.liangmayong:androidplugin:1.0.0'
+    compile 'com.liangmayong:androidplugin:0.1.1'
 }
 ```
 插件化拓展包［可选］
 ```
 dependencies {
-   compile 'com.liangmayong:androidplugin-support:1.0.0'
+   compile 'com.liangmayong:androidplugin-support:0.1.1'
 }
 ```
 插件化插件包［可选］
 ```
 dependencies {
-    compile 'com.liangmayong:androidplugin-bundle:1.0.0'
+    compile 'com.liangmayong:androidplugin-bundle:0.1.1'
 }
 ```
 ## 支持

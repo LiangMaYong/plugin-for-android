@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.liangmayong.androidplugin.app.APActivityLifeCycle;
 import com.liangmayong.androidplugin.management.APluginLauncher;
+import com.liangmayong.androidplugin.management.APluginManager;
 import com.liangmayong.androidplugin.utils.APLog;
 import com.liangmayong.androidplugin.utils.APXmlParser;
 
@@ -52,21 +53,21 @@ public final class LauncherActivity extends Activity {
                             APluginLauncher.startActivity(this, null, "", launch);
                             finish();
                         } else {
-                            if (APLog.DEBUG) {
+                            if (APluginManager.isDebug()) {
                                 initViews("Not Found Activity<br>---------------------<br>" + launch);
                             } else {
                                 initViews("Error");
                             }
                         }
                     } catch (ClassNotFoundException e) {
-                        if (APLog.DEBUG) {
+                        if (APluginManager.isDebug()) {
                             initViews("Not Found Activity<br>---------------------<br>" + launch);
                         } else {
                             initViews("Error");
                         }
                     }
                 } else {
-                    if (APLog.DEBUG) {
+                    if (APluginManager.isDebug()) {
                         initViews("main is empty");
                     } else {
                         initViews("Error");
@@ -74,7 +75,7 @@ public final class LauncherActivity extends Activity {
                 }
             }
         } catch (Exception e) {
-            if (APLog.DEBUG) {
+            if (APluginManager.isDebug()) {
                 initViews("main is empty");
             } else {
                 initViews("Error");
