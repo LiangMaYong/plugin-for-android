@@ -373,19 +373,26 @@ public class APInstrumentation extends Instrumentation {
             if ((dexPath == null || "".equals(dexPath)) && target != null && target.getIntent() != null) {
                 dexPath = target.getIntent().getStringExtra(APConstant.INTENT_PLUGIN_DEX);
             }
+            String launch = intent.getStringExtra(APConstant.INTENT_PLUGIN_LAUNCH);
+            if ((launch == null || "".equals(launch))) {
+                try {
+                    launch = intent.getComponent().getClassName();
+                } catch (Exception e) {
+                }
+            }
             if (dexPath != null && !"".equals(dexPath)) {
                 //save extras
                 Bundle extras = intent.getExtras();
                 if (extras != null) {
                     // reset extras
                     extras.putString(APConstant.INTENT_PLUGIN_DEX, dexPath);
-                    extras.putString(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
+                    extras.putString(APConstant.INTENT_PLUGIN_LAUNCH, launch);
                     extras.setClassLoader(who.getClassLoader());
-                    APIntentExtras.saveExtras(intent.getComponent().getClassName(), extras);
+                    APIntentExtras.saveExtras(launch, extras);
                 }
                 Intent newIntent = new Intent(who, LauncherActivity.class);
                 newIntent.putExtra(APConstant.INTENT_PLUGIN_DEX, dexPath);
-                newIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
+                newIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, launch);
                 return proxyExecStartActivity(who, contextThread, token, target, newIntent, requestCode);
             }
         }
@@ -400,20 +407,27 @@ public class APInstrumentation extends Instrumentation {
             if ((dexPath == null || "".equals(dexPath)) && target != null && target.getIntent() != null) {
                 dexPath = target.getIntent().getStringExtra(APConstant.INTENT_PLUGIN_DEX);
             }
+            String launch = intent.getStringExtra(APConstant.INTENT_PLUGIN_LAUNCH);
+            if ((launch == null || "".equals(launch))) {
+                try {
+                    launch = intent.getComponent().getClassName();
+                } catch (Exception e) {
+                }
+            }
             if (dexPath != null && !"".equals(dexPath)) {
                 //save extras
                 Bundle extras = intent.getExtras();
                 if (extras != null) {
                     // reset extras
                     extras.putString(APConstant.INTENT_PLUGIN_DEX, dexPath);
-                    extras.putString(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
+                    extras.putString(APConstant.INTENT_PLUGIN_LAUNCH, launch);
                     extras.setClassLoader(who.getClassLoader());
-                    APIntentExtras.saveExtras(intent.getComponent().getClassName(), extras);
+                    APIntentExtras.saveExtras(launch, extras);
                 }
                 //new intent
                 Intent newIntent = new Intent(who, LauncherActivity.class);
                 newIntent.putExtra(APConstant.INTENT_PLUGIN_DEX, dexPath);
-                newIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
+                newIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, launch);
                 return proxyExecStartActivity(who, contextThread, token, target, newIntent, requestCode, options);
             }
         }

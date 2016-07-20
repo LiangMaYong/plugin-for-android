@@ -182,7 +182,14 @@ public class APContext extends ContextWrapper {
             } else {
                 proxyIntent.putExtra(APConstant.INTENT_PLUGIN_DEX, dexPath);
             }
-            proxyIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
+            String launch = intent.getStringExtra(APConstant.INTENT_PLUGIN_LAUNCH);
+            if ((launch == null || "".equals(launch))) {
+                try {
+                    launch = intent.getComponent().getClassName();
+                } catch (Exception e) {
+                }
+            }
+            proxyIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, launch);
             super.startActivity(proxyIntent);
         } else {
             super.startActivity(intent);
@@ -208,7 +215,14 @@ public class APContext extends ContextWrapper {
             } else {
                 proxyIntent.putExtra(APConstant.INTENT_PLUGIN_DEX, dexPath);
             }
-            proxyIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, intent.getComponent().getClassName());
+            String launch = intent.getStringExtra(APConstant.INTENT_PLUGIN_LAUNCH);
+            if ((launch == null || "".equals(launch))) {
+                try {
+                    launch = intent.getComponent().getClassName();
+                } catch (Exception e) {
+                }
+            }
+            proxyIntent.putExtra(APConstant.INTENT_PLUGIN_LAUNCH, launch);
             super.startActivity(proxyIntent, options);
         } else {
             super.startActivity(intent, options);

@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isLoad = false;
     private boolean isInstall = false;
     private APlugin plugin;
-    private String packageName = "com.example.plplayer";
-    private String apkPath = "plugins/PLPlayer.apk";
-    //private String packageName = "com.liangmayong.bundle";
-    //private String apkPath = "plugins/bundle.apk";
+//    private String packageName = "com.example.plplayer";
+//    private String apkPath = "plugins/PLPlayer.apk";
+    private String packageName = "com.liangmayong.simple";
+    private String apkPath = "plugins/simple-debug.apk";
 
 
     @Override

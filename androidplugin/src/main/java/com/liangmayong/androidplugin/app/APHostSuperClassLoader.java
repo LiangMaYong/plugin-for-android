@@ -13,6 +13,12 @@ public class APHostSuperClassLoader extends ClassLoader {
 
     private static ClassLoader hostClassLoader;
 
+    /**
+     * getHostSuperClassLoader
+     *
+     * @param classLoader classLoader
+     * @return classLoader
+     */
     public final static ClassLoader getHostSuperClassLoader(ClassLoader classLoader) {
         if (hostClassLoader == null) {
             synchronized (APHostSuperClassLoader.class) {
