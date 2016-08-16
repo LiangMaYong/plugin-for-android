@@ -245,6 +245,9 @@ public final class APlugin implements APEventBus.IEvent {
                             if (main.startsWith(".")) {
                                 main = getPackageInfo().packageName + main;
                             }
+                            if (main.indexOf(".") == -1) {
+                                main = getPackageInfo().packageName + "." + main;
+                            }
                             return main;
                         }
                     }
@@ -253,6 +256,9 @@ public final class APlugin implements APEventBus.IEvent {
         }
         if (main.startsWith(".")) {
             main = getPackageInfo().packageName + main;
+        }
+        if (main.indexOf(".") == -1) {
+            main = getPackageInfo().packageName + "." + main;
         }
         return main;
     }
@@ -272,12 +278,7 @@ public final class APlugin implements APEventBus.IEvent {
         try {
             application = (Application) APClassLoader.getClassloader(getPluginPath()).loadClass(appClassName)
                     .newInstance();
-            try {
-                Field mBase = ContextWrapper.class.getDeclaredField("mBase");
-                mBase.setAccessible(true);
-                mBase.set(application, APContext.get(APluginManager.getHostApplication(), getPluginPath()));
-            } catch (Exception e) {
-            }
+            APReflect.method(application.getClass(), application, "attach", Context.class).invoke(APContext.get(APluginManager.getHostApplication(), getPluginPath()));
             application.onCreate();
         } catch (Throwable e) {
         }

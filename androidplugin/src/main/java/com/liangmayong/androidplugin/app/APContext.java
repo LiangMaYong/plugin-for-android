@@ -5,8 +5,12 @@ import com.liangmayong.androidplugin.launcher.LauncherActivity;
 import com.liangmayong.androidplugin.launcher.LauncherService;
 import com.liangmayong.androidplugin.management.APluginManager;
 import com.liangmayong.androidplugin.utils.APEventBus;
+import com.liangmayong.androidplugin.utils.APLog;
+import com.liangmayong.androidplugin.utils.APReflect;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -22,7 +26,7 @@ import android.os.Bundle;
  * @author LiangMaYong
  * @version 1.0
  */
-public class APContext extends ContextWrapper {
+public class APContext extends Application {
 
     // plugin dexPath
     private String dexPath = "";
@@ -30,6 +34,7 @@ public class APContext extends ContextWrapper {
     private ClassLoader classLoader = null;
     // plugin
     private APlugin plugin = null;
+
 
     /**
      * getPlugin
@@ -71,6 +76,9 @@ public class APContext extends ContextWrapper {
      * @return context
      */
     public static Context get(Context base, String dexPath) {
+        if (base instanceof ContextWrapper) {
+            base = ((ContextWrapper) base).getBaseContext();
+        }
         if (dexPath == null || "".equals(dexPath)) {
             return base;
         }
@@ -89,6 +97,11 @@ public class APContext extends ContextWrapper {
         } catch (Exception e) {
             return base;
         }
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return this;
     }
 
     /**
@@ -139,7 +152,10 @@ public class APContext extends ContextWrapper {
      * @param base
      */
     private APContext(Context base) {
-        super(base);
+        try {
+            APReflect.method(getClass(), this, "attach", Context.class).invoke(base);
+        } catch (Exception e) {
+        }
     }
 
     /**
