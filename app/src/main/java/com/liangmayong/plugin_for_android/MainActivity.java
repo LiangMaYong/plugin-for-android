@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isLoad = false;
     private boolean isInstall = false;
     private APlugin plugin;
-    private String packageName = "com.example.plplayer";
-    private String apkPath = "plugins/PLPlayer.apk";
+    private String packageName = "com.liangmayong.superandroid";
+    private String apkPath = "plugins/androidbase.apk";
 
 
     @Override
